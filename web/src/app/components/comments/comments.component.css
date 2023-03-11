@@ -9,17 +9,19 @@
 }
 
 .comment-container {
+  display: flex;
+  justify-content: space-between;
   text-align: left;
   border-bottom: 1px solid #efefef;
   padding: 1em 0;
 }
 
 .comment {
-  font-size: .9em;
+  font-size: 1em;
 }
 
 .author {
-  font-size: .8em;
+  font-size: .9em;
 }
 
 .author span {

@@ -4,8 +4,18 @@
   }})</h3>
   <div *ngIf="moment.comments!.length > 0; else noComments">
     <div class="comment-container" *ngFor="let comment of moment.comments">
-      <p class="comment">{{ comment.text }}</p>
-      <div class="author"><span>por:</span>{{ comment.username }}</div>
+      <div>
+        <p class="comment">{{ comment.text }}</p>
+        <div class="author"><span>por: </span>{{ comment.username }}</div>
+      </div>
+      <div>
+        <a class="edit-btn">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </a>
+        <button class="remove-btn" (click)="removeHandler(comment.id!)">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </button>
+      </div>
     </div>
   </div>
   <ng-template #noComments>

@@ -12,12 +12,17 @@ import { Response } from '../Response';
 })
 export class CommentService {
   private baseApiUrl = environment.baseApiUrl
-  private apiUrl = `${this.baseApiUrl}api/moments`
+  private apiUrl = `${this.baseApiUrl}api`
 
   constructor(private http: HttpClient) { }
 
   createComments(data: Comment): Observable<Response<Comment>> {
-    const url = `${this.apiUrl}/${data.momentId}/comments`
+    const url = `${this.apiUrl}/moments/${data.momentId}/comments`
     return this.http.post<Response<Comment>>(url, data)
+  }
+
+  removeComment(id: number): Observable<Response<Comment>> {
+    const url = `${this.apiUrl}/comments/${id}`
+    return this.http.delete<Response<Comment>>(url)
   }
 }

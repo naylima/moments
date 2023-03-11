@@ -36,11 +36,11 @@ export class CommentsComponent implements OnInit{
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'))
-  
+    
     this.momentService
       .getMoment(id)
       .subscribe(item => this.moment = item.data)
-
+      
     this.commentForm = new FormGroup({
       text: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required])
@@ -73,5 +73,15 @@ export class CommentsComponent implements OnInit{
     this.commentForm.reset()
 
     formDirective.resetForm()
+  }
+
+  async removeHandler(id: number) {
+    await this.commentService
+      .removeComment(id)
+      .subscribe(comment => 
+        this.moment!.comments = this.moment!.comments!.filter(item => item.id !== comment.data.id)
+      )
+
+    this.messageService.add('Comentário excluído com sucesso!')
   }
 }
