@@ -25,4 +25,9 @@ export class CommentService {
     const url = `${this.apiUrl}/comments/${id}`
     return this.http.delete<Response<Comment>>(url)
   }
+
+  updateComment(id: number, data: Comment): Observable<Response<Comment>> {
+    const url = `${this.apiUrl}/comments/${id}`
+    return this.http.put<Response<Comment>>(url, data)
+  }
 }

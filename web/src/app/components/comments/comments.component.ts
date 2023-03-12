@@ -20,6 +20,7 @@ import { faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
 })
 export class CommentsComponent implements OnInit{
   moment?: Moment
+  commentData!: Comment
   baseApiUrl = environment.baseApiUrl
 
   faTimes = faTimes
@@ -27,9 +28,12 @@ export class CommentsComponent implements OnInit{
 
   commentForm!: FormGroup
 
+  isEditing: boolean = false
+  id: number = 0
+
   constructor(
     private momentService: MomentService,
-    private messageService: MessagesService,
+    private messagesService: MessagesService,
     private commentService: CommentService,
     private route: ActivatedRoute,
   ) {}
@@ -68,11 +72,29 @@ export class CommentsComponent implements OnInit{
       .createComments(data)
       .subscribe(comment => this.moment!.comments!.push(comment.data))
 
-    this.messageService.add('Comentário adicionado!')
+    this.messagesService.add('Comentário adicionado!')
 
     this.commentForm.reset()
 
     formDirective.resetForm()
+  }
+
+  async editHandler(formDirective: FormGroupDirective) {
+    const id = this.id
+
+    const data: Comment = this.commentForm.value
+
+    data.username = this.commentData?.username
+    data.momentId = Number(this.moment!.id)
+
+    await this.commentService
+      .updateComment(id!, data)
+      .subscribe()
+    
+    this.ngOnInit()
+
+    this.messagesService.add('Comentário editado com sucesso!')
+    this.isEditing = false
   }
 
   async removeHandler(id: number) {
@@ -82,6 +104,12 @@ export class CommentsComponent implements OnInit{
         this.moment!.comments = this.moment!.comments!.filter(item => item.id !== comment.data.id)
       )
 
-    this.messageService.add('Comentário excluído com sucesso!')
+    this.messagesService.add('Comentário excluído com sucesso!')
+  }
+
+  onEdit(comment: Comment) {
+    this.isEditing = !this.isEditing
+    this.commentData = comment
+    this.id = comment.id!
   }
 }

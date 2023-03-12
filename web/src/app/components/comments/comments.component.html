@@ -3,18 +3,39 @@
     moment.comments!.length > 0 ? moment.comments!.length : 0 
   }})</h3>
   <div *ngIf="moment.comments!.length > 0; else noComments">
-    <div class="comment-container" *ngFor="let comment of moment.comments">
-      <div>
-        <p class="comment">{{ comment.text }}</p>
-        <div class="author"><span>por: </span>{{ comment.username }}</div>
+    <div *ngFor="let comment of moment.comments">
+      <div class="comment-container">
+        <div>
+          <p class="comment">{{ comment.text }}</p>
+          <div class="author"><span>por: </span>{{ comment.username }}</div>
+        </div>
+  
+        <div>
+          <a class="edit-btn" (click)="onEdit(comment)">
+            <fa-icon [icon]="faEdit"></fa-icon>
+          </a>
+          <button class="remove-btn" (click)="removeHandler(comment.id!)">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+        </div>
       </div>
-      <div>
-        <a class="edit-btn">
-          <fa-icon [icon]="faEdit"></fa-icon>
-        </a>
-        <button class="remove-btn" (click)="removeHandler(comment.id!)">
-          <fa-icon [icon]="faTimes"></fa-icon>
-        </button>
+
+      <div class="comment-form">
+        <form 
+          *ngIf="isEditing && id === comment.id" 
+          [formGroup]="commentForm" 
+          #formDir="ngForm"
+          (ngSubmit)="editHandler(formDir)"
+        >
+          <div class="form-group">
+            <textarea
+              formControlName="text"
+              placeholder="O que você quer comentar" 
+              required
+            ></textarea>
+          </div>
+          <input type="submit" value="Comentar!">
+        </form>
       </div>
     </div>
   </div>
@@ -25,6 +46,7 @@
 
 <div class="comment-form">
   <h3>Deixe um comentário:</h3>
+
   <form [formGroup]="commentForm" #formDir="ngForm" (ngSubmit)="onSubmit(formDir)">
     <div class="form-group">
       <label for="text">Comentário</label>
