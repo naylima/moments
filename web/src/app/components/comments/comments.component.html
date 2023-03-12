@@ -33,6 +33,9 @@
               placeholder="O que você quer comentar" 
               required
             ></textarea>
+            <div *ngIf='text!.invalid && formDir.submitted' class='validation-error'>
+              <p *ngIf="text!.errors?.['required']">O texto é obrigatório</p>
+            </div>
           </div>
           <input type="submit" value="Comentar!">
         </form>

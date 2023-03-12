@@ -46,8 +46,12 @@ export class CommentsComponent implements OnInit{
       .subscribe(item => this.moment = item.data)
       
     this.commentForm = new FormGroup({
-      text: new FormControl('', [Validators.required]),
-      username: new FormControl('', [Validators.required])
+      text: new FormControl(this.commentData ? this.commentData.text : '', [
+        Validators.required
+      ]),
+      username: new FormControl(this.commentData ? this.commentData.username :'', [
+        Validators.required
+      ])
     })
   }
 
@@ -80,6 +84,10 @@ export class CommentsComponent implements OnInit{
   }
 
   async editHandler(formDirective: FormGroupDirective) {
+    if(this.commentForm.get('text')?.invalid) {
+      return
+    }
+
     const id = this.id
 
     const data: Comment = this.commentForm.value
@@ -114,5 +122,6 @@ export class CommentsComponent implements OnInit{
     this.isEditing = !this.isEditing
     this.commentData = comment
     this.id = comment.id!
+    this.ngOnInit()
   }
 }
