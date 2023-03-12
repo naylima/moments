@@ -65,6 +65,12 @@ input[type='submit']:hover {
   color: #DC3545;
 }
 
+@media (max-width: 600px) {
+  form {
+    width: 90%;
+  }
+}
+
 /* Buttons */
 
 .edit-btn,

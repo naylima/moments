@@ -1,5 +1,5 @@
 .home-container {
-  display: flex;
+  display: flex; 
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -68,4 +68,24 @@ a:hover {
   margin: 0 auto;
   width: 100%;
   text-align: center;
+}
+
+@media (max-width: 600px) {
+  .home-container h1 {
+    text-align: center;
+  }
+
+  .search-container form {
+    width: 80%;
+  }
+
+  .moments-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .moment {
+    width: 80%;
+  }
+  
 }

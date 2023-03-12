@@ -40,3 +40,18 @@ nav {
 #add a:hover {
   background-color: #efefef;
 }
+
+@media (max-width: 600px) {
+  .brand img {
+    width: 25px;
+  }
+
+  .brand h2 {
+    font-size: 20px;
+  }
+
+  .links li {
+    margin-right: 5px;
+    font-size: 12px;
+  }
+}

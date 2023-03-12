@@ -31,3 +31,13 @@ img {
 .actions h3 {
   margin-bottom: 1em;
 }
+
+@media (max-width: 600px) {
+  .moment {
+    width: 90%;
+  }
+
+  img {
+    width: 100%;
+  }
+}

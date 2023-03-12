@@ -95,6 +95,9 @@ export class CommentsComponent implements OnInit{
 
     this.messagesService.add('Comentário editado com sucesso!')
     this.isEditing = false
+
+    this.commentForm.reset()
+    formDirective.resetForm()
   }
 
   async removeHandler(id: number) {
