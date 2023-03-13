@@ -5,7 +5,7 @@ O moments é uma aplicação web que possibilita ao usuário postar, editar e ex
 ## Como preparar a aplicação
 
  - no backend: 
-    popule o .env conforme o exemplo (.env.exemple)
+    popule o .env conforme o exemplo (.env.exemple); 
     rode as migrations: adonis migration:run
  
  - no frontend: 
